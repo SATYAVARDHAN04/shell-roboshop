@@ -19,6 +19,8 @@ do
         RECORD_NAME="$DOMAIN_NAME"
     fi
     echo "$instance IP address: $IP"
+	
+	#create delete upset --> rote53 actions
 
     aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \
