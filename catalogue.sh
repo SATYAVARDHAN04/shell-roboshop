@@ -80,5 +80,11 @@ Validate $? "mongodb repo copied"
 dnf install mongodb-mongosh -y &>> $LOG_FILE
 Validate $? "Installing Mongodb client"
 
-mongosh --host mongodb.satyology.site </app/db/master-data.js &>> $LOG_FILE
-Validate $? "Loading of mongodb data into server"
+STATUS=$(mongosh --host mongodb.satyology.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+if [ $STATUS -lt 0 ]
+then
+    mongosh --host mongodb.satyology.site </app/db/master-data.js &>>$LOG_FILE
+    VALIDATE $? "Loading data into MongoDB"
+else
+    echo -e "Data is already loaded ... SKIPPING"
+fi
