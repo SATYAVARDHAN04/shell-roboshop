@@ -41,7 +41,7 @@ Validate $? "Installing Node js module"
 systemctl enable nginx  &>> $LOG_FILE
 Validate $? "Enabling nginx"
 
-systemctl start nginx  &>> $LOG_FILE
+sudo systemctl start nginx  &>> $LOG_FILE
 Validate $? "starting nginx service"
 
 rm -rf /usr/share/nginx/html/* &>> $LOG_FILE
