@@ -50,29 +50,29 @@ fi
 mkdir -p /app 
 Validate $? "Creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>> $LOG_FILE
-Validate $? "Catalogue code downloading"
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>> $LOG_FILE
+Validate $? "User code downloading"
 
 cd /app 
 rm -rf /app/*
-unzip /tmp/catalogue.zip &>> $LOG_FILE
+unzip /tmp/user.zip &>> $LOG_FILE
 Validate $? "moving to app directory and unziping it"
 
 cd /app 
 npm install &>> $LOG_FILE
 Validate $? "Installing the required Dependencies"
 
-cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
-Validate $? "Copying Catalogue service"
+cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service
+Validate $? "Copying user service"
 
 systemctl daemon-reload &>> $LOG_FILE
-Validate $? "Realoding catalogue service"
+Validate $? "Realoding user service"
 
-systemctl enable catalogue &>> $LOG_FILE
-Validate $? "catalogue enabled"
+systemctl enable user &>> $LOG_FILE
+Validate $? "user enabled"
 
-systemctl start catalogue &>> $LOG_FILE
-Validate $? "catalogue server started" 
+systemctl start user &>> $LOG_FILE
+Validate $? "User server started" 
 
 cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongo.repo
 Validate $? "mongodb repo copied"
