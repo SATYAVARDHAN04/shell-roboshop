@@ -19,6 +19,8 @@ else
 	echo -e "${green}Running with root access!!! ${reset}" | tee -a $LOG_FILE
 fi
 
+read -s -p "Enter the rabbitmq password: " RABBITMQ_PASSWORD
+
 Validate() {
 	if [ $1 -eq 0 ]
 	then 
@@ -32,7 +34,7 @@ Validate() {
 dnf install maven -y &>> $LOG_FILE
 Validate $? "Installing maven module"
 
-cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 Validate $? "Copying rabbitmq repository"
 
 dnf install rabbitmq-server -y &>> $LOG_FILE
@@ -44,7 +46,7 @@ Validate $? "rabbitmq server enabled"
 systemctl start rabbitmq-server &>> $LOG_FILE
 Validate $? "rabbitmq server started" 
 
-rabbitmqctl add_user roboshop roboshop123 &>> $LOG_FILE
+rabbitmqctl add_user roboshop $RABBITMQ_PASSWORD &>> $LOG_FILE
 Validate $? "Adding roboshop user"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOG_FILE
