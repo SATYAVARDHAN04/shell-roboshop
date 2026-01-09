@@ -55,7 +55,7 @@ Validate $? "Cart code downloading"
 
 cd /app 
 rm -rf /app/*
-unzip /tmp/user.zip &>> $LOG_FILE
+unzip /tmp/cart.zip &>> $LOG_FILE
 Validate $? "moving to app directory and unziping it"
 
 cd /app 
