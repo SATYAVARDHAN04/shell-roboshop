@@ -19,6 +19,8 @@ else
 	echo -e "${green}Running with root access!!! ${reset}" | tee -a $LOG_FILE
 fi
 
+read -p "Enter the mysql root password: " MYSQL_ROOT_PASSWORD
+
 Validate() {
 	if [ $1 -eq 0 ]
 	then 
@@ -33,10 +35,10 @@ dnf install mysql-server -y  &>> $LOG_FILE
 Validate $? "Installing mysql server module"
 
 systemctl enable mysqld &>> $LOG_FILE
-Validate $? "redis enabled"
+Validate $? "mysql enabled"
 
 systemctl start mysqld  &>> $LOG_FILE
 Validate $? "Mysql server started" 
 
-mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG_FILE
-Validate $? "Mysql installation" 
+mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD &>> $LOG_FILE
+Validate $? "Mysql secure installation" 
