@@ -76,7 +76,7 @@ Validate $? "shipping server started"
 dnf install mysql -y &>> $LOG_FILE
 Validate $? "Installing Mysql client"
 
-mysql -h mysql.satyology.site -uroot -p$mysqlpasswd -e 'use cities'
+mysql -h mysql.satyology.site -uroot -p$mysqlpasswd -e 'cities'
 if [ $? -ne 0 ] 
 then 
 	mysql -h mysql.satyology.site -uroot -p$mysqlpasswd < /app/db/schema.sql &>> $LOG_FILE
