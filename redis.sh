@@ -38,10 +38,10 @@ Validate $? "Enabling Redis module"
 dnf install redis -y  &>> $LOG_FILE
 Validate $? "Installing redis module"
 
-sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
 Validate $? "Changing the local host"
 
-sed -i '/s/protected-mode:yes/protected-mode:no/g' /etc/redis/redis.conf
+sed -i '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
 Validate $? "Changing the local host"
 
 systemctl enable redis  &>> $LOG_FILE
