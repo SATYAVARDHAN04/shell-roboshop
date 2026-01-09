@@ -15,7 +15,7 @@ then
 	echo -e "${red}Error:${reset} Please run with root access...." | tee -a $LOG_FILE
 	exit 1
 else
-	echo -e "${green}Running with root access installing mysql ${reset}" | tee -a $LOG_FILE
+	echo -e "${green}Running with root access ${reset}" | tee -a $LOG_FILE
 fi
 
 Validate() {
