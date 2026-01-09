@@ -19,7 +19,7 @@ else
 	echo -e "${green}Running with root access!!! ${reset}" | tee -a $LOG_FILE
 fi
 
-read -p "Enter the mysql root password: " MYSQL_ROOT_PASSWORD
+read -p -s "Enter the mysql root password: " MYSQL_ROOT_PASSWORD
 
 Validate() {
 	if [ $1 -eq 0 ]
