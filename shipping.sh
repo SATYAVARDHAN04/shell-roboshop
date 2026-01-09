@@ -54,8 +54,10 @@ Validate $? "moving to app directory and unziping it"
 
 cd /app 
 mvn clean package &>> $LOG_FILE
-mv target/shipping-1.0.jar shipping.jar &>> $LOG_FILE
 Validate $? "Installing the required Dependencies"
+
+mv target/shipping-1.0.jar shipping.jar &>> $LOG_FILE
+Validate $? "Moving to jar file"
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
 Validate $? "Copying shipping service"
