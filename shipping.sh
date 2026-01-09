@@ -76,14 +76,20 @@ Validate $? "shipping server started"
 dnf install mysql -y &>> $LOG_FILE
 Validate $? "Installing Mysql client"
 
-mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql &>> $LOG_FILE
-Validate $? "Loading Schema data"
+mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD -e 'use cities'
+if [ $? -ne 0 ] 
+then 
+	mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql &>> $LOG_FILE
+	Validate $? "Loading Schema data"
 
-mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql &>> $LOG_FILE
-Validate $? "Loading User data"
+	mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql &>> $LOG_FILE
+	Validate $? "Loading User data"
 
-mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql &>> $LOG_FILE
-Validate $? "Loading countries and states data"
+	mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql &>> $LOG_FILE
+	Validate $? "Loading countries and states data"
+else
+	echo "cities database already exists"
+fi
 
 systemctl restart shipping &>> $LOG_FILE
 Validate $? "Restarting shipping"
