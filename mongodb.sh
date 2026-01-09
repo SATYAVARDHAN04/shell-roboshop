@@ -28,10 +28,10 @@ Validate() {
 	fi
 }
 
-cp mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp mongodb.repo /etc/yum.repos.d/mongodb.repo &>> $LOG_FILE
 Validate $? "Copying of repo folder"
 
-dnf install mongodb-org -y | tee -a $LOG_FILE
+dnf install mongodb-org -y &>> $LOG_FILE
 Validate $? "mongodb installation"
 
 systemctl enable mongod &>> $LOG_FILE

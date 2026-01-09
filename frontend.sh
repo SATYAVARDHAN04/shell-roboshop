@@ -30,13 +30,13 @@ Validate() {
 }
 
 dnf module disable nginx -y &>> $LOG_FILE
-Validate $? "Disabiling Nodejs"
+Validate $? "Disabiling nginx"
 
 dnf module enable nginx:1.24 -y &>> $LOG_FILE
-Validate $? "Enabling Node js module"
+Validate $? "Enabling nginx module"
 
 dnf install nginx -y &>> $LOG_FILE
-Validate $? "Installing Node js module"
+Validate $? "Installing nginx"
 
 systemctl enable nginx  &>> $LOG_FILE
 Validate $? "Enabling nginx"
