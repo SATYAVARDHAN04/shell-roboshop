@@ -41,7 +41,7 @@ else
 	echo "roboshop user already created"
 fi
 
-read -s -p "Enter the mysql root password: " MYSQL_ROOT_PASSWORD
+read -s -p "Enter the mysql root password: " mysqlpasswd
 
 mkdir -p /app 
 Validate $? "Creating app directory"
@@ -76,16 +76,16 @@ Validate $? "shipping server started"
 dnf install mysql -y &>> $LOG_FILE
 Validate $? "Installing Mysql client"
 
-mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD -e 'use cities'
+mysql -h mysql.satyology.site -uroot -p$mysqlpasswd -e 'use cities'
 if [ $? -ne 0 ] 
 then 
-	mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql &>> $LOG_FILE
+	mysql -h mysql.satyology.site -uroot -p$mysqlpasswd < /app/db/schema.sql &>> $LOG_FILE
 	Validate $? "Loading Schema data"
 
-	mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql &>> $LOG_FILE
+	mysql -h mysql.satyology.site -uroot -p$mysqlpasswd < /app/db/app-user.sql &>> $LOG_FILE
 	Validate $? "Loading User data"
 
-	mysql -h mysql.satyology.site -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql &>> $LOG_FILE
+	mysql -h mysql.satyology.site -uroot -p$mysqlpasswd < /app/db/master-data.sql &>> $LOG_FILE
 	Validate $? "Loading countries and states data"
 else
 	echo "cities database already exists"
