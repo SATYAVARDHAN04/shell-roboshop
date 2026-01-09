@@ -19,7 +19,7 @@ else
 	echo -e "${green}Running with root access!!! ${reset}" | tee -a $LOG_FILE
 fi
 
-read -p -s "Enter the mysql root password: " MYSQL_ROOT_PASSWORD
+read -p -s "Enter the mysql root password: " MYSQLROOTPASSWORD
 
 Validate() {
 	if [ $1 -eq 0 ]
@@ -40,5 +40,5 @@ Validate $? "mysql enabled"
 systemctl start mysqld  &>> $LOG_FILE
 Validate $? "Mysql server started" 
 
-mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD &>> $LOG_FILE
+mysql_secure_installation --set-root-pass $MYSQLROOTPASSWORD &>> $LOG_FILE
 Validate $? "Mysql secure installation" 
