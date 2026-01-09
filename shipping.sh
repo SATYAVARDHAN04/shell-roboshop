@@ -41,7 +41,7 @@ else
 	echo "roboshop user already created"
 fi
 
-read -p -s "Enter the mysql root password: " MYSQL_ROOT_PASSWORD
+read -s -p "Enter the mysql root password: " MYSQL_ROOT_PASSWORD
 
 mkdir -p /app 
 Validate $? "Creating app directory"
